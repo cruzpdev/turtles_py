@@ -1,45 +1,34 @@
 from turtle import Turtle
+t = Turtle()
 
-def obter_distancia_e_rotacao():
+def obter_distancia():
     distancia = int(input("Distância em pixels: "))
+    return distancia
+
+def rotacionar(turtle):
     rotacao = input("ROTAÇÃO (d = direita, e = esquerda, n = não rotacionar): ").lower()
-    if rotacao == "n":
-        rotacao = None
-        grau = 0
-    else:
-        grau = int(input(f"Quantos graus?: "))
-
-    return distancia, rotacao, grau
-
-def mover(t, distancia, rotacao, grau):
     if rotacao == "d":
-        t.right(grau)
+        rotacionar_direita (turtle)
     elif rotacao == "e":
-        t.left(grau)
+        rotacionar_esquerda (turtle)
 
-    if distancia >= 0:
+def rotacionar_direita (turtle):
+    angulo = int(input("Ângulo de rotação para direita: "))
+    t.right(angulo)
+def rotacionar_esquerda(turtle):
+    angulo = int(input("Ângulo de rotação para esquerda: "))
+    t.left(angulo)
+
+while True:
+    direcao = input("DIREÇÃO (f = frente, t = trás): ").lower()
+    if direcao == 'f':
+        distancia = obter_distancia()
+        rotacionar(t)
         t.forward(distancia)
-    else:
-        t.backward(abs(distancia))
-
-def continuar_execucao():
-    return input("Deseja continuar? (s para sim, qualquer outra tecla para não): ").lower() == "s"
-
-def principal():
-    t = Turtle()
-    t.speed(1)
-
-    while True:
-        direcao = input("Para qual direção devemos ir?\n f = frente ou t = trás\n").lower()
-
-        if direcao == "f" or direcao == "t":
-            distancia, rotacao, grau = obter_distancia_e_rotacao()
-            mover(t, distancia, rotacao, grau)
-        else:
-            print("Comando inválido")
-
-        if not continuar_execucao():
-            break
-
-if __name__ == "__main__":
-    principal()
+    if direcao == 't':
+        distancia = obter_distancia()
+        rotacionar(t)
+        t.backward(distancia)
+    resposta = input("Continuar andando? (s/n): ").lower()
+    if resposta not in ("s"):
+        break
